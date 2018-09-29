@@ -1,0 +1,9 @@
+
+#Leiame
+
+
+Criar um servidor we que receba dados pela URL
+
+http://localhost/api/epi/index.php?sensor=10
+
+A máquina servidora localhost deve estar conectada na rede LIS com IP fixo 192.168.5.5
