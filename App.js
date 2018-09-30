@@ -1,20 +1,19 @@
 
 
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { Fragment } from 'react';
 
 import 'config/ReactotronConfig';
 import { Provider } from 'react-redux';
 
 import store from "store";
 
-import Example from 'pages/main';
+import Routes from 'routes';
 
 const App = () => (
   <Provider store={store}>
-    <View>
-      <Example />
-    </View>
+    <Fragment>
+      <Routes />
+    </Fragment>
   </Provider>
 );
 

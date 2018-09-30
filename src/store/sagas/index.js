@@ -1,11 +1,11 @@
 import { all, takeLatest } from 'redux-saga/effects';
-import { Types as ExampleTypes } from '../ducks/example';
+import { Types as EmployeeTypes } from '../ducks/employee';
 
-import { exampleRequest } from './example';
+import { employeeRequest } from './employee';
 
 
 export default function* rootSaga() {
   yield all([
-    takeLatest(ExampleTypes.GET_REQUEST, exampleRequest),
+    takeLatest(EmployeeTypes.GET_REQUEST, employeeRequest),
   ]);
 }
