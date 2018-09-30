@@ -4,6 +4,7 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 import Welcome from 'pages/welcome';
 import TableTab from 'pages/main/tabs/TableTab';
 import GraphTab from 'pages/main/tabs/GraphTab';
+import ReportTab from 'pages/main/tabs/ReportTab';
 
 const Routes = ( ) => (
   <Navigation />
@@ -14,14 +15,14 @@ const Navigation = StackNavigator({
   Main: { screen: StackNavigator({
     Tab: { screen: TabNavigator({
       TableTab: { screen: TableTab },
-      GraphTab: { screen: GraphTab,
-      },
+      GraphTab: { screen: GraphTab},
+      ReportTab: { screen: ReportTab},
     }, {
       tabBarPosition: 'top',
       tabBarOptions: {
         tintColor: '#fff',
         activeTintColor: '#fff',
-        inactiveTintColor: '#f5f5f5',
+        inactiveTintColor: '#ef9a9a',
         showLabel : false,
         showIcon: true,
         style: {

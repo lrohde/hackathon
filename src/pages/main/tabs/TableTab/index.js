@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as EmployeeActions } from 'store/ducks/employee';
+import { Creators as MultometroActions } from 'store/ducks/multometro';
 
 
 import styles from './styles';
@@ -25,12 +26,13 @@ class TableTab extends Component {
   }
 
   _onRefresh = () => {
-    this.props.getRequest();
+    this.props.employeeAction.getRequest();
+    this.props.multometroAction.getRequest();
   }
 
 
   componentDidMount() {
-    this.props.getRequest();
+    this.props.employeeAction.getRequest();
   }
 
   getPickerDate = () => {
@@ -76,34 +78,8 @@ class TableTab extends Component {
       <Fragment>
         <View style={styles.container}>
         <StatusBar barStyle="dark-content"/>
-        <View style={styles.filters}>
-          <SelectInput
-            options={this.getPickerSection()}
-            onSubmitEditing={(value) => console.tron.log(value)}
-            style={{ padding: 10 }}
-          />
-          <SelectInput
-            options={this.getPickerEmployeer()}
-            onSubmitEditing={(value) => console.tron.log(value)}
-            style={{ padding: 10 }}
-          />
-        </View>
-        <View style={styles.date}>
-          <DatePicker
-            style={{width: 200}}
-            date={this.state.date}
-            mode="date"
-            placeholder="select date"
-            format="YYYY-MM-DD"
-            minDate="2016-05-01"
-            maxDate="2016-06-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            onDateChange={(date) => {this.setState({date: date})}}
-          />
-        </View>
         <View style={styles.list}>
-        <Text style={styles.listTitle}>Indice de Incidências</Text>
+        <Text style={styles.listTitle}>Últimos Registros</Text>
 
         <FlatList
           data={this.props.employee.data}
@@ -149,7 +125,10 @@ const mapStateToProps = state => ({
   employee: state.employee,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators(EmployeeActions, dispatch);
+const mapDispatchToProps = dispatch => ({
+  employeeAction: bindActionCreators(EmployeeActions, dispatch),
+  multometroAction: bindActionCreators(MultometroActions, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableTab);
 

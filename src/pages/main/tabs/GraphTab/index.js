@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { StackedAreaChart } from 'react-native-svg-charts';
 import * as shape from 'd3-shape';
 import SelectInput from 'react-native-select-input-ios';
@@ -55,6 +55,13 @@ const svgs = [
 
 
 class GraphTab extends React.Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+      graphic: 0,
+    }
+  }
   static navigationOptions = {
     tabBarIcon: ({ tintColor }) => (
         <Icon name="ios-stats" style={{ color: tintColor, fontSize: 20 } } />
@@ -63,28 +70,9 @@ class GraphTab extends React.Component {
 
   getPickerDate = () => {
     return [
-      { value: 0, label: 'Date' },
-      { value: 1, label: 'Banana' },
-      { value: 2, label: 'Orange' },
-      { value: 3, label: 'Strawberry' },
-    ];
-  }
-
-  getPickerSection = () => {
-    return [
-      { value: 0, label: 'Setor' },
-      { value: 1, label: 'Banana' },
-      { value: 2, label: 'Orange' },
-      { value: 3, label: 'Strawberry' },
-    ];
-  }
-
-  getPickerEmployeer = () => {
-    return [
-      { value: 0, label: 'Funcionário' },
-      { value: 1, label: 'Banana' },
-      { value: 2, label: 'Orange' },
-      { value: 3, label: 'Strawberry' },
+      { value: 0, label: 'Dia' },
+      { value: 1, label: 'Mes' },
+      { value: 2, label: 'Ano' },
     ];
   }
 
@@ -94,30 +82,26 @@ class GraphTab extends React.Component {
         <View style={styles.container}>
           <View style={styles.filters}>
             <SelectInput
+            value={this.state.graphic}
               options={this.getPickerDate()}
-              onSubmitEditing={(value) => console.tron.log(value)}
+              onSubmitEditing={(value) => this.setState({ graphic: value })}
               style={{ padding: 10 }}
             />
-            <SelectInput
-              options={this.getPickerSection()}
-              onSubmitEditing={(value) => console.tron.log(value)}
-              style={{ padding: 10 }}
-            />
-            <SelectInput
-              options={this.getPickerEmployeer()}
-              onSubmitEditing={(value) => console.tron.log(value)}
-              style={{ padding: 10 }}
-            />
+            <View style={styles.graphic}>
+            {
+              this.state.graphic == 1
+              ?<Image style={styles.image} resizeMode="contain"source={require('img/mes.jpeg')} />
+              :this.state.graphic == 0
+                ?<Image style={styles.image} resizeMode="contain" source={require('img/dia.jpeg')} />
+                : this.state.graphic == 2
+                  ?<Image style={styles.image} resizeMode="contain" source={require('img/ano.jpeg')} />
+                  :null
+
+            }
+            </View>
+
+
           </View>
-          <StackedAreaChart
-            style={{ height: 200, paddingVertical: 16 }}
-            data={data}
-            keys={keys}
-            colors={colors}
-            curve={shape.curveNatural}
-            showGrid={false}
-            svgs={svgs}
-          />
         </View>
         <Multometro />
       </Fragment>
